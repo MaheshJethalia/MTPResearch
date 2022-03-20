@@ -3,12 +3,28 @@
 #include<string.h> // string operations
 #include<ctype.h>
 #include<math.h>
-
+/*int IR(int a,int d,float A[],float D[])
+{
+int i,j,count=0;
+for(i=0;i<a;i++)
+{
+for(j=0;j<d;j++)
+{
+distance=sqrtf(pow(store_x[A[i]]-store_x[D[j]],2)+pow(store_y[A[i]]-store_y[D[j]],2)+pow(store_z[A[i]]-store_z[D[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[A[i]],store_slno[A[i]],store_res_nm[A[i]],store_res_no[A[i]],store_atm_nm[D[j]],store_slno[D[j]],store_res_nm[D[j]],store_res_no[D[j]],distance);
+count++;
+}
+}
+}
+return count;
+}*/
 int main ()
 {
 char word[5], line[100],atm_nm[4],x[9],y[9],z[9],slno[6],ch_id[20000],store_atm_nm[20000][4], store_res_nm[20000][4],res_nm[4],res_no[5];
 FILE *f1,*f2; 
-int i,j,c1=0,store_slno[20000],store_res_no[20000],B[20000],A[20000],C[20000],D[20000],E[20000],F[20000],b=0,a=0,c=0,d=0,e=0,f=0,count=0;
+int i,j,c1=0,store_slno[20000],store_res_no[20000],B[20000],A[20000],C[20000],D[20000],E[20000],F[20000],G[20000],H[20000],b=0,a=0,c=0,d=0,e=0,f=0,g=0,h=0,count=0;
 float store_x[20000],store_y[20000],store_z[20000],percent[5];
 double distance=0.0;
 f1 = fopen("Complex.pdb","r"); 
@@ -78,6 +94,16 @@ while(fgets(line,100,f1)!=NULL)
 		{
 		F[f]=c1;
 		f++;
+		}
+		if(ch_id[c1]=='G')
+		{
+		G[g]=c1;
+		g++;
+		}
+		if(ch_id[c1]=='H')
+		{
+		H[h]=c1;
+		h++;
 		}
 		c1++;
 }//end of if
@@ -161,6 +187,32 @@ count++;
 }
 }
 }
+//to calculate distance AG
+for(i=0;i<a;i++)
+{
+for(j=0;j<g;j++)
+{
+distance=sqrtf(pow(store_x[A[i]]-store_x[G[j]],2)+pow(store_y[A[i]]-store_y[G[j]],2)+pow(store_z[A[i]]-store_z[G[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[A[i]],store_slno[A[i]],store_res_nm[A[i]],store_res_no[A[i]],store_atm_nm[G[j]],store_slno[G[j]],store_res_nm[G[j]],store_res_no[G[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance AH
+for(i=0;i<a;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[A[i]]-store_x[H[j]],2)+pow(store_y[A[i]]-store_y[H[j]],2)+pow(store_z[A[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[A[i]],store_slno[A[i]],store_res_nm[A[i]],store_res_no[A[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
 //to calculate distance BD
 for(i=0;i<b;i++)
 {
@@ -200,7 +252,32 @@ count++;
 }
 }
 }
-
+//to calculate distance BG
+for(i=0;i<b;i++)
+{
+for(j=0;j<g;j++)
+{
+distance=sqrtf(pow(store_x[B[i]]-store_x[G[j]],2)+pow(store_y[B[i]]-store_y[G[j]],2)+pow(store_z[B[i]]-store_z[G[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[B[i]],store_slno[B[i]],store_res_nm[B[i]],store_res_no[B[i]],store_atm_nm[G[j]],store_slno[G[j]],store_res_nm[G[j]],store_res_no[G[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance BH
+for(i=0;i<b;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[B[i]]-store_x[H[j]],2)+pow(store_y[B[i]]-store_y[H[j]],2)+pow(store_z[B[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[B[i]],store_slno[B[i]],store_res_nm[B[i]],store_res_no[B[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
 //to calculate distance CD
 for(i=0;i<c;i++)
 {
@@ -240,6 +317,32 @@ count++;
 }
 }
 }
+//to calculate distance CG
+for(i=0;i<c;i++)
+{
+for(j=0;j<g;j++)
+{
+distance=sqrtf(pow(store_x[C[i]]-store_x[G[j]],2)+pow(store_y[C[i]]-store_y[G[j]],2)+pow(store_z[C[i]]-store_z[G[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[C[i]],store_slno[C[i]],store_res_nm[C[i]],store_res_no[C[i]],store_atm_nm[G[j]],store_slno[G[j]],store_res_nm[G[j]],store_res_no[G[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance CH
+for(i=0;i<c;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[C[i]]-store_x[H[j]],2)+pow(store_y[C[i]]-store_y[H[j]],2)+pow(store_z[C[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[C[i]],store_slno[C[i]],store_res_nm[C[i]],store_res_no[C[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
 //to calculate distance DE
 for(i=0;i<d;i++)
 {
@@ -266,6 +369,32 @@ count++;
 }
 }
 }
+//to calculate distance DG
+for(i=0;i<d;i++)
+{
+for(j=0;j<g;j++)
+{
+distance=sqrtf(pow(store_x[D[i]]-store_x[G[j]],2)+pow(store_y[D[i]]-store_y[G[j]],2)+pow(store_z[D[i]]-store_z[G[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[D[i]],store_slno[D[i]],store_res_nm[D[i]],store_res_no[D[i]],store_atm_nm[G[j]],store_slno[G[j]],store_res_nm[G[j]],store_res_no[G[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance DH
+for(i=0;i<d;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[D[i]]-store_x[H[j]],2)+pow(store_y[D[i]]-store_y[H[j]],2)+pow(store_z[D[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[D[i]],store_slno[D[i]],store_res_nm[D[i]],store_res_no[D[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
 //to calculate distance EF
 for(i=0;i<e;i++)
 {
@@ -279,9 +408,72 @@ count++;
 }
 }
 }
-
+//to calculate distance EG
+for(i=0;i<e;i++)
+{
+for(j=0;j<g;j++)
+{
+distance=sqrtf(pow(store_x[E[i]]-store_x[G[j]],2)+pow(store_y[E[i]]-store_y[G[j]],2)+pow(store_z[E[i]]-store_z[G[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[E[i]],store_slno[E[i]],store_res_nm[E[i]],store_res_no[E[i]],store_atm_nm[G[j]],store_slno[G[j]],store_res_nm[G[j]],store_res_no[G[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance EH
+for(i=0;i<e;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[E[i]]-store_x[H[j]],2)+pow(store_y[E[i]]-store_y[H[j]],2)+pow(store_z[E[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[E[i]],store_slno[E[i]],store_res_nm[E[i]],store_res_no[E[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance FG
+for(i=0;i<f;i++)
+{
+for(j=0;j<g;j++)
+{
+distance=sqrtf(pow(store_x[F[i]]-store_x[G[j]],2)+pow(store_y[F[i]]-store_y[G[j]],2)+pow(store_z[F[i]]-store_z[G[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[F[i]],store_slno[F[i]],store_res_nm[F[i]],store_res_no[F[i]],store_atm_nm[G[j]],store_slno[G[j]],store_res_nm[G[j]],store_res_no[G[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance FH
+for(i=0;i<f;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[F[i]]-store_x[H[j]],2)+pow(store_y[F[i]]-store_y[H[j]],2)+pow(store_z[F[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[F[i]],store_slno[F[i]],store_res_nm[F[i]],store_res_no[F[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
+//to calculate distance GH
+for(i=0;i<g;i++)
+{
+for(j=0;j<h;j++)
+{
+distance=sqrtf(pow(store_x[G[i]]-store_x[H[j]],2)+pow(store_y[G[i]]-store_y[H[j]],2)+pow(store_z[G[i]]-store_z[H[j]],2));
+if(distance<=4.5)
+{
+fprintf(f2,"%s  %5d %s %4d ----- %s  %5d %s %4d     %8.3f \n",store_atm_nm[G[i]],store_slno[G[i]],store_res_nm[G[i]],store_res_no[G[i]],store_atm_nm[H[j]],store_slno[H[j]],store_res_nm[H[j]],store_res_no[H[j]],distance);
+count++;
+}
+}
+}
 fprintf(f2,"Total number of Interactions:%d \n",count);
-
 fclose(f1);
 fclose(f2);
 return 0;
